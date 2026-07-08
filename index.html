@@ -1,31 +1,175 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>godbless.com</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* HEADER ATAS */
+        header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        /* TOMBOL TIGA GARIS (HAMBURGER) */
+        .menu-btn {
+            position: absolute;
+            left: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 24px;
+            height: 18px;
+            z-index: 1000;
+        }
+        .menu-btn span {
+            display: block;
+            height: 2px;
+            width: 100%;
+            background-color: #000000;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* LOGO DI TENGAH HEADER */
+        .header-logo {
+            height: 35px;
+            width: auto;
+        }
+
+        /* OVERLAY MENU SLIDE-IN (TAMPILAN MENU KETIKA DIPENCET) */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: -100%; /* Sembunyi di kiri luar layar */
+            width: 250px;
+            height: 100%;
+            background-color: #ffffff;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            transition: left 0.3s ease;
+            z-index: 999;
+            padding-top: 80px;
+        }
+        .nav-menu.active {
+            left: 0; /* Geser masuk ke layar */
+        }
+        .nav-menu ul {
+            list-style: none;
+        }
+        .nav-menu li {
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .nav-menu a {
+            display: block;
+            padding: 18px 25px;
+            color: #000000;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .nav-menu a:hover {
+            background-color: #f9f9f9;
+        }
+
+        /* GELAPIN BACKGROUND PAS MENU BUKA */
+        .overlay-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: none;
+            z-index: 998;
+        }
+        .overlay-bg.active {
+            display: block;
+        }
+
+        /* WADAH VIDEO */
+        .video-container {
+            width: 100%;
+            max-width: 700px;
+            margin: 20px auto 40px auto;
+            padding: 0 15px;
+        }
+        .video-container video {
+            width: 100%;
+            display: block;
+            border-radius: 6px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+        }
+    </style>
 </head>
-<body style="margin: 0; padding: 0; font-family: sans-serif; background-color: #ffffff;">
-    
-    <!-- Wadah Video Skate -->
-    <div style="width: 100%; max-width: 700px; margin: 60px auto 30px auto; text-align: center; box-sizing: border-box; padding: 0 15px;">
-        <video style="width: 100%; display: block; border-radius: 8px;" controls autoplay loop muted playsinline>
+<body>
+
+    <div class="overlay-bg" id="overlay" onclick="toggleMenu()"></div>
+
+    <header>
+        <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <img src="logo.png" alt="GODBLESS" class="header-logo">
+    </header>
+
+    <nav class="nav-menu" id="sideMenu">
+        <ul>
+            <li><a href="halaman2.html">SHOP</a></li>
+            <li><a href="#" onclick="alert('Halaman About segera hadir!'); return false;">ABOUT</a></li>
+            <li><a href="#" onclick="alert('Halaman Maps segera hadir!'); return false;">MAPS</a></li>
+        </ul>
+    </nav>
+
+    <div class="video-container">
+        <video controls autoplay loop muted playsinline>
             <source src="skate.mp4" type="video/mp4">
         </video>
     </div>
 
-    <!-- Tombol Lanjut ke Katalog -->
-    <div style="text-align: center; margin: 30px 0;">
-        <a href="halaman2.html" style="background-color: black; color: white; padding: 14px 28px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; font-size: 16px;">
-            Halaman Berikutnya
-        </a>
-    </div>
-    
-</div>
- <!-- Blok Copyright (Gak usah fixed biar gak nutupin konten pas di scroll) -->
-    <div style="background: black; color: white; padding: 15px; text-align: center; width: 100%; box-sizing: border-box;">
-        <p style="margin: 0; font-size: 12px;">Copyright &copy; 2026 godbless.com. All Rights Reserved.</p>
-    </div>
+    <footer>
+        <p>Copyright &copy; 2026 godbless.com. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            var menu = document.getElementById("sideMenu");
+            var overlay = document.getElementById("overlay");
+            menu.classList.toggle("active");
+            overlay.classList.toggle("active");
+        }
+    </script>
 
 </body>
 </html>
