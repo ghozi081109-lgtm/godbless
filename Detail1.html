@@ -104,21 +104,54 @@
             padding: 20px;
         }
 
-        /* GAMBAR PRODUK */
-        .product-image-container {
+       /* GAMBAR PRODUK SLIDER */
+        .product-slider-container {
             width: 100%;
-            background-color: #f7f7f7;
-            border-radius: 12px;
-            overflow: hidden;
+            position: relative;
             margin-bottom: 20px;
-            text-align: center;
         }
 
-        .product-image-container img {
+        .product-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            background-color: #f7f7f7;
+        }
+
+        .product-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .product-slider img {
+            flex: 0 0 100%;
             width: 100%;
-            max-height: 450px;
-            object-fit: cover;
-            display: block;
+            height: 380px;
+            object-fit: contain;
+            scroll-snap-align: start;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ccc;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background-color: #111;
+            width: 20px;
+            border-radius: 10px;
         }
 
         /* INFO PRODUK */
@@ -281,18 +314,20 @@
 
     <!-- MAIN CONTENT -->
     <div class="container">
-        
-        <<!-- Wadah Utama Slider Foto -->
-<div style="display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; border-radius: 8px; width: 100%; gap: 10px;">
-
-  <img src="Hudi.png" alt="Foto Depan" style="scroll-snap-align: start; flex: 0 0 100%; width: 100%; object-fit: cover;">
-  
-  
-  <img src="hudi1.png" alt="Foto Belakang" style="scroll-snap-align: start; flex: 0 0 100%; width: 100%; object-fit: cover;">
-  
-
-  <img src="schodie.png" alt="Foto Detail" style="scroll-snap-align: start; flex: 0 0 100%; width: 100%; object-fit: cover;">
-
+<!-- SLIDER GAMBAR PRODUK -->
+<div class="product-slider-container">
+    <div class="product-slider">
+        <!-- Tambahin foto-foto produk lu di sini -->
+        <img src="foto1.jpg" alt="Foto Produk 1">
+        <img src="foto2.jpg" alt="Foto Produk 2">
+        <img src="foto3.jpg" alt="Foto Produk 3">
+    </div>
+    <!-- Titik Indikator Slide -->
+    <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
 </div>
 
         <!-- TULISAN JUDUL & HARGA -->
@@ -406,5 +441,19 @@
             alert(`${currentQty}x ${namaProduk} (Size ${selectedSize}) berhasil ditambahkan ke keranjang!`);
         }
     </script>
+    <script>
+    // Logika Indikator Titik Slider
+    const slider = document.querySelector('.product-slider');
+    const dots = document.querySelectorAll('.dot');
+
+    if (slider && dots.length > 0) {
+        slider.addEventListener('scroll', () => {
+            const scrollIndex = Math.round(slider.scrollLeft / slider.clientWidth);
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === scrollIndex);
+            });
+        });
+    }
+</script>
 </body>
 </html>
