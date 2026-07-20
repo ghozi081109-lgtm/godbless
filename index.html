@@ -170,30 +170,31 @@
     </style>
 </head>
 <body>
-<body>
 
     <!-- BACKGROUND GELAP PAS MENU BUKA -->
     <div class="overlay-bg" id="overlay" onclick="toggleMenu()"></div>
 
     <!-- HEADER -->
-    <header>
+    <header style="padding: 15px; position: relative; z-index: 999;">
         <!-- Tombol Tiga Garis -->
-        <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
+        <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu" style="font-size: 24px; background: none; border: none; cursor: pointer;">
+            ☰
         </button>
     </header>
 
-    <!-- SLIDE MENU (SHOP, ABOUT, MAPS) -->
-    <nav class="nav-menu" id="sideMenu">
-        <ul>
-            <li><a href="halaman2.html">SHOP</a></li>
-            <li><a href="about.html">ABOUT</a></li>
+    <!-- SLIDE MENU -->
+    <nav class="nav-menu" id="sideMenu" style="z-index: 1000;">
+        <ul style="list-style: none; padding: 20px;">
+            <li style="margin-bottom: 15px;">
+                <a href="halaman2.html" style="color: #111; text-decoration: none; font-weight: bold; font-size: 18px;">SHOP</a>
+            </li>
+            <li style="margin-bottom: 15px;">
+                <a href="about.html" style="color: #111; text-decoration: none; font-weight: bold; font-size: 18px;">ABOUT</a>
+            </li>
             
-            <!-- 🛒 TARUH IKON KERANJANG DI SINI DER! -->
-            <li>
-                <a href="halaman2.html" class="cart-icon" style="color: #111; text-decoration: none;">
+            <!-- IKON KERANJANG -->
+            <li style="margin-bottom: 15px;">
+                <a href="halaman2.html" class="cart-icon" style="color: #111; text-decoration: none; font-weight: bold; font-size: 18px;">
                     🛒 Keranjang (<span id="cartCount">0</span>)
                 </a>
             </li>
