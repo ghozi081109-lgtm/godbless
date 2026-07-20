@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+` <!DOCTYPE html>
 <html lang="id">
 <head>
     
@@ -72,18 +72,15 @@
             width: auto;
         }
 
-        /* OVERLAY MENU SLIDE-IN */
         .nav-menu {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 250px;
-            height: 100%;
-            background-color: #ffffff;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-            transition: left 0.3s ease;
-            z-index: 999;
-            padding-top: 80px;
+    position: fixed;
+    top: 0;
+    left: -300px; /* Posisi awal ngumpet di kiri */
+    width: 250px;
+    height: 100%;
+    background-color: #ffffff;
+    z-index: 1000;
+    transition: left 0.3s ease; /* Bikin efek gesernya mulus */
         }
         .nav-menu.active {
             left: 0;
@@ -218,17 +215,20 @@
     <footer>
         <p>Copyright &copy; 2026 godbless.com. All Rights Reserved.</p>
     </footer>
-    <!-- Script JavaScript di sini -->
+  <!-- JAVASCRIPT BUAT BUKA/TUTUP MENU (VERSI GESER) -->
     <script>
         function toggleMenu() {
             var menu = document.getElementById("sideMenu");
             var overlay = document.getElementById("overlay");
 
-            if (menu.style.display === "block") {
-                menu.style.display = "none";
+            // Kalau menu lagi kebuka (posisi di 0px), kita tutup ke -300px
+            if (menu.style.left === "0px") {
+                menu.style.left = "-300px"; 
                 if (overlay) overlay.style.display = "none";
-            } else {
-                menu.style.display = "block";
+            } 
+            // Kalau lagi ketutup, kita tarik ke dalam layar (0px)
+            else {
+                menu.style.left = "0px"; 
                 if (overlay) overlay.style.display = "block";
             }
         }
