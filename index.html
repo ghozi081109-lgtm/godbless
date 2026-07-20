@@ -170,6 +170,7 @@
     </style>
 </head>
 <body>
+<body>
 
     <!-- BACKGROUND GELAP PAS MENU BUKA -->
     <div class="overlay-bg" id="overlay" onclick="toggleMenu()"></div>
@@ -183,18 +184,23 @@
             <span></span>
         </button>
     </header>
-<a href="cart.html" class="cart-icon">
-    🛒 Keranjang (<span id="cartCount">0</span>)
-</a>
+
     <!-- SLIDE MENU (SHOP, ABOUT, MAPS) -->
     <nav class="nav-menu" id="sideMenu">
         <ul>
             <li><a href="halaman2.html">SHOP</a></li>
-            <li><a href="about.html" >ABOUT</a></li>
-     </ul>
+            <li><a href="about.html">ABOUT</a></li>
+            
+            <!-- 🛒 TARUH IKON KERANJANG DI SINI DER! -->
+            <li>
+                <a href="halaman2.html" class="cart-icon" style="color: white; text-decoration: none;">
+                    🛒 Keranjang (<span id="cartCount">0</span>)
+                </a>
+            </li>
+        </ul>
     </nav>
-
-    <!-- KONTEN VIDEO UTAMA -->
+  
+  <!-- KONTEN VIDEO UTAMA -->
     <div class="video-container">
         <video controls autoplay loop muted playsinline>
             <source src="skate.mp4" type="video/mp4">
