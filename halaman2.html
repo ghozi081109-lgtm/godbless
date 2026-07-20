@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Tambahkan ini di dalam <nav> atau header lu -->
-<div class="cart-icon" onclick="toggleCartModal()">
-    🛒 Keranjang (<span id="cartCount">0</span>)
-</div>
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1PDM5Y99LK"></script>
 <script>
@@ -26,11 +22,15 @@
     <!-- KOTAK PEMBUNGKUS UTAMA (Biar gak melebar di PC) -->
     <div style="max-width: 900px; margin: 0 auto; background-color: #f9f9f9; padding-bottom: 80px;">
 
-        <!-- Tombol Kembali -->
-        <div style="padding: 20px 15px 10px 15px;">
-            <a href="index.html" style="color: #111; text-decoration: none; font-weight: bold;">&larr; Kembali</a>
+      <!-- Tombol Kembali & Ikon Keranjang -->
+        <div style="padding: 20px 15px 10px 15px; display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" style="color: #111; text-decoration: none; font-weight: bold;">← Kembali</a>
+            
+            <!-- 🛒 KODE KERANJANG TARUH DI SINI DER -->
+            <a href="cart.html" class="cart-icon" style="color: #111; text-decoration: none; font-weight: bold;">
+                🛒 Keranjang (<span id="cartCount">0</span>)
+            </a>
         </div>
-
         <!-- Judul Halaman -->
         <h2 style="text-align: center; letter-spacing: 2px; margin-bottom: 20px;">SHOP</h2>
 
