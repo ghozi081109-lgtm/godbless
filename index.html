@@ -212,58 +212,5 @@
         <p>Copyright &copy; 2026 godbless.com. All Rights Reserved.</p>
     </footer>
 
-    <!-- SCRIPT JAVASCRIPT UNTUK MENU -->
-    <script>
-        function toggleMenu() {
-            var menu = document.getElementById("sideMenu");
-            var overlay = document.getElementById("overlay");
-            menu.classList.toggle("active");
-            overlay.classList.toggle("active");
-        }
-    </script>
-<script>
-    // 1. Ambil data keranjang dari localStorage (kalau ada), atau buat array kosong
-    let cart = JSON.parse(localStorage.getItem('distroCart')) || [];
-
-    // Fungsi untuk update angka di ikon keranjang
-    function updateCartCount() {
-        const cartCountElement = document.getElementById('cartCount');
-        
-        // Menghitung total jumlah (quantity) barang
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartCountElement.innerText = totalItems;
-    }
-
-    // 2. Fungsi Tambah ke Keranjang
-    function addToCart(id, name, price, image) {
-        // Cek apakah barang udah ada di keranjang
-        const existingItem = cart.find(item => item.id === id);
-
-        if (existingItem) {
-            existingItem.quantity += 1; // Kalau udah ada, tambah jumlahnya
-        } else {
-            // Kalau belum ada, masukkan sebagai barang baru
-            cart.push({
-                id: id,
-                name: name,
-                price: price,
-                image: image,
-                quantity: 1
-            });
-        }
-
-        // Simpan array terbaru ke localStorage browser
-        localStorage.setItem('distroCart', JSON.stringify(cart));
-
-        // Update angka di navbar
-        updateCartCount();
-
-        // Kasih efek notifikasi simpel
-        alert(`${name} (Gaib) berhasil masuk keranjang! 🛒`);
-    }
-
-    // Jalankan fungsi update angka saat pertama kali halaman dimuat
-    updateCartCount();
-</script>
 </body>
 </html>
