@@ -1,58 +1,459 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Produk - godbless.com</title>
+    <title>Godbless Official Store - Detail Produk</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #111111;
+            padding-bottom: 30px;
+        }
+
+        /* HEADER / NAVBAR */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eeeeee;
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            z-index: 900;
+        }
+
+        .menu-btn {
+            font-size: 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            color: #111111;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #111111;
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* SIDEBAR NAVIGATION */
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 260px;
+            height: 100%;
+            background-color: #ffffff;
+            z-index: 1000;
+            transition: left 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .nav-menu h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .nav-menu ul {
+            list-style: none;
+        }
+
+        .nav-menu ul li {
+            margin-bottom: 15px;
+        }
+
+        .nav-menu ul li a {
+            text-decoration: none;
+            color: #111111;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .overlay-bg {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 998;
+        }
+
+        /* CONTAINER PRODUK */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+       /* GAMBAR PRODUK SLIDER */
+        .product-slider-container {
+            width: 100%;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .product-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 12px;
+            background-color: #f7f7f7;
+        }
+
+        .product-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .product-slider img {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 380px;
+            object-fit: contain;
+            scroll-snap-align: start;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ccc;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background-color: #111;
+            width: 20px;
+            border-radius: 10px;
+        }
+
+        /* INFO PRODUK */
+        .product-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 20px;
+        }
+
+        .description-box {
+            margin-bottom: 25px;
+            font-size: 14px;
+            color: #555555;
+            line-height: 1.6;
+        }
+
+        .description-box h4 {
+            color: #111111;
+            margin-bottom: 6px;
+            font-size: 15px;
+        }
+
+        .description-box ul {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
+        /* PILIHAN SIZE */
+        .section-title {
+            font-weight: 600;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .size-btn {
+            width: 48px;
+            height: 48px;
+            background: #ffffff;
+            border: 1px solid #cccccc;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .size-btn.active {
+            border-color: #000000;
+            background: #000000;
+            color: #ffffff;
+        }
+
+        /* QUANTITY COUNTER (- 1 +) */
+        .qty-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 140px;
+            border: 1px solid #cccccc;
+            border-radius: 6px;
+            margin: 0 auto 20px auto;
+            overflow: hidden;
+        }
+
+        .qty-btn {
+            width: 42px;
+            height: 42px;
+            background: #transparent;
+            border: none;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        #qty-count {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* TOMBOL ADD TO CART */
+        .btn-add-cart-full {
+            width: 100%;
+            padding: 16px;
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-add-cart-full:active {
+            opacity: 0.8;
+        }
+
+        /* TOMBOL WHATSAPP */
+        .btn-wa {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #25D366;
+            color: #ffffff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 12px;
+            color: #888888;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+    </style>
 </head>
-<body style="font-family: sans-serif; margin: 0; padding: 0; background-color: #ffffff;">
+<body>
 
-    <!-- Wadah Detail (Biar rapi di PC & HP) -->
-    <div style="max-width: 500px; margin: 0 auto; padding: 20px;">
-        
-   <!-- Tombol Kembali -->
-        <div style="padding: 20px 15px 10px 15px;">
-            <a href="halaman2.html" style="color: #111; text-decoration: none; font-weight: bold;">&larr; </a>
-        </div>
+    <!-- OVERLAY BACKGROUND -->
+    <div id="overlay" class="overlay-bg" onclick="toggleMenu()"></div>
 
-       <!-- Wadah Utama Slider Foto -->
-<div style="display: flex; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; border-radius: 8px; width: 100%; gap: 10px;">
-  
+    <!-- SIDEBAR NAV MENU -->
+    <div id="sideMenu" class="nav-menu">
+        <h3>Menu</h3>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="halaman2.html">Shop / Produk</a></li>
+            <li><a href="#">Keranjang Saya</a></li>
+        </ul>
+    </div>
 
-  <img src="kaos4.png" alt="Foto Depan" style="scroll-snap-align: start; flex: 0 0 100%; width: 100%; object-fit: cover;">
-  
-  
-  <img src="kaos3.png" alt="Foto Belakang" style="scroll-snap-align: start; flex: 0 0 100%; width: 100%; object-fit: cover;">
-  
-  
-  <img src="sckaos.png" alt="Foto Detail" style="scroll-snap-align: start; flex: 0 0 100%; width: 100%; object-fit: cover;">
+    <!-- HEADER / NAVBAR -->
+    <header>
+        <button class="menu-btn" onclick="toggleMenu()">&#9776;</button>
+        <a href="index.html" class="back-link">&larr; Kembali</a>
+    </header>
 
+    <!-- MAIN CONTENT -->
+    <div class="container">
+<!-- SLIDER GAMBAR PRODUK -->
+<div class="product-slider-container">
+    <div class="product-slider">
+        <!-- Tambahin foto-foto produk lu di sini -->
+        <img src="baju.png" alt="Foto Produk 1">
+        <img src="baju1.png" alt="Foto Produk 2">
+        <img src="sckaos.png" alt="Foto Produk 3">
+    </div>
+    <!-- Titik Indikator Slide -->
+    <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
 </div>
-        <!-- Nama & Harga -->
-        <h1 style="margin: 0; font-size: 24px;">GodBless fall in font Regular Fit Tshirts white</h1>
-        <p style="font-size: 20px; color: #555; font-weight: bold; margin: 10px 0;">IDR 108.000</p>
 
-        <!-- Deskripsi -->
-        <div style="line-height: 1.6; color: #555; margin-bottom: 30px;">
-            <h3 style="margin-bottom: 5px;">Deskripsi Produk:</h3>
-            <p>Plastisol Ink with 100% Australian Cotton Coolbreeze. Available size S,M,L,XLcara order: klik tombol order via whatsapp dan kirimkan pesannya</p>
+        <!-- TULISAN JUDUL & HARGA -->
+        <h1 class="product-title">Godbless  Regular Fit Tshirt white </h1>
+        <p class="product-price">IDR 150.000</p>
+
+        <!-- DESKRIPSI PRODUK -->
+        <div class="description-box">
+            <h4>Deskripsi Produk:</h4>
+            <p>menggunakan katun australia coolbrezee dengan teknologi dingin pada kain. serta sentuhan sablon discharge yang awet</p>
             <ul>
-               </div>
-             <!-- Panggil fungsi addToCart pas diklik -->
-    <button onclick="addToCart('prod-01', 'T-Shirt Neon Gaib', 150000, 'kaos-gaib.jpg')">
-        + Keranjang
-    </button>
-</div>
-        </div>
+                <li>Kondisi: 100% Baru</li>
+                <li>Material: 100% Australian cottton coolbreze</li>
+            </ul>
         </div>
 
-        <!-- Tombol Order Langsung ke WA -->
-        <a href="https://wa.me/62817318831?text=Halo, saya mau order tshirts godbless fall in font%20." style="background-color: #000000; color: white; padding: 15px; text-align: center; text-decoration: none; border-radius: 8px; font-weight: bold; display: block; font-size: 16px;">
-            order via WhatsApp
+        <!-- PILIHAN SIZE -->
+        <label class="section-title">Size</label>
+        <div class="size-options">
+            <button class="size-btn" onclick="selectSize(this)">S</button>
+            <button class="size-btn" onclick="selectSize(this)">M</button>
+            <button class="size-btn" onclick="selectSize(this)">L</button>
+            <button class="size-btn" onclick="selectSize(this)">XL</button>
+         </div>
+
+        <!-- COUNTER QUANTITY (- 1 +) -->
+        <div class="qty-container">
+            <button class="qty-btn" onclick="changeQty(-1)">-</button>
+            <span id="qty-count">1</span>
+            <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+
+        <!-- TOMBOL ADD TO CART -->
+        <button class="btn-add-cart-full" onclick="addToCartPro()">
+            Add to Cart
+        </button>
+
+        <!-- TOMBOL WHATSAPP (Ganti nomor HP di bawah sesuai nomor lu) -->
+        <a href="https://wa.me/6281234567890?text=Halo%20Godbless,%20saya%20mau%20order%20Griptape" class="btn-wa" target="_blank">
+            WhatsApp
         </a>
+
+        <!-- FOOTER -->
+        <footer>
+            <p><strong>GODBLESS OFFICIAL STORE</strong></p>
+            <p>Jl. Dukuhan No. 13, Kec. Minggir, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55562</p>
+            <p style="margin-top: 10px;">Copyright &copy; 2026 godbless.com. All Rights Reserved.</p>
+        </footer>
 
     </div>
 
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // TOGGLE MENU SIDEBAR
+        function toggleMenu() {
+            var menu = document.getElementById("sideMenu");
+            var overlay = document.getElementById("overlay");
+
+            if (menu.style.left === "0px") {
+                menu.style.left = "-300px"; 
+                if (overlay) overlay.style.display = "none";
+            } else {
+                menu.style.left = "0px"; 
+                if (overlay) overlay.style.display = "block";
+            }
+        }
+
+        // PILIHAN SIZE LOGIC
+        let selectedSize = "";
+        function selectSize(btn) {
+            let buttons = document.querySelectorAll('.size-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedSize = btn.innerText;
+        }
+
+        // QUANTITY COUNTER LOGIC
+        let currentQty = 1;
+        function changeQty(amount) {
+            currentQty += amount;
+            if (currentQty < 1) currentQty = 1;
+            document.getElementById('qty-count').innerText = currentQty;
+        }
+
+        // ADD TO CART LOGIC
+        function addToCartPro() {
+            if (!selectedSize) {
+                alert("Pilih ukuran (size) terlebih dahulu der!");
+                return;
+            }
+
+            let namaProduk = "Godbless Griptape Super Grippy";
+            let harga = 80000;
+
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            let itemIndex = cart.findIndex(item => item.nama === namaProduk && item.size === selectedSize);
+
+            if (itemIndex > -1) {
+                cart[itemIndex].jumlah += currentQty;
+            } else {
+                cart.push({
+                    nama: namaProduk,
+                    harga: harga,
+                    size: selectedSize,
+                    jumlah: currentQty
+                });
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert(`${currentQty}x ${namaProduk} (Size ${selectedSize}) berhasil ditambahkan ke keranjang!`);
+        }
+    </script>
+    <script>
+    // Logika Indikator Titik Slider
+    const slider = document.querySelector('.product-slider');
+    const dots = document.querySelectorAll('.dot');
+
+    if (slider && dots.length > 0) {
+        slider.addEventListener('scroll', () => {
+            const scrollIndex = Math.round(slider.scrollLeft / slider.clientWidth);
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === scrollIndex);
+            });
+        });
+    }
+</script>
 </body>
 </html>
-
